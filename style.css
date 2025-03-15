@@ -116,6 +116,10 @@ div.book-container > div .content {
   text-overflow: ellipsis;
 }
 
+div.book-container .book-container-header{
+  justify-content: end;
+}
+
 /* Book container and "Add Book" Form buttons should have similar styles */
 div.book-container .book-container-header button,
 button.dialog-close-button {
@@ -134,6 +138,7 @@ button.dialog-close-button:hover {
 
 div.book-container .book-container-header button {
   padding: 0 0.4rem;
+  margin-right: 0.25rem;
 }
 
 button.dialog-close-button {
