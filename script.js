@@ -97,6 +97,41 @@ function printLibrary(library) {
   }
 }
 
+// "Add Book" Button shows form dialog upon click
+addBookButton = document.querySelector("button#add-button");
+addBookDialog = document.querySelector("dialog#add-button-dialog");
+addBookButton.addEventListener("click", () => {
+  addBookDialog.showModal();
+})
+
+// Implementing "Add Book" modal dialog form functionality
+submitBookButton = document.querySelector("input.dialog-submit-button");
+submitBookButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  // read input values from form
+  title = document.querySelector("input#title").value;
+  author = document.querySelector("input#author").value;
+  pages = document.querySelector("input#pages").value;
+  readChecked = document.querySelector("input[name='read']:checked");
+  read = false;
+  if (readChecked.value === "true"){
+    read = true;
+  }
+
+  // add book to library based on provided values
+  addBookToLibrary(title, author, pages, read, myLibrary);
+
+  printLibrary(myLibrary.slice(myLibrary.length-1)); //print only newly added (last) element.
+  addBookDialog.close();
+})
+
+// Close button for "Add Book" modal dialog
+addBookCloseButton = document.querySelector("button.dialog-close-button");
+addBookCloseButton.addEventListener("click", () => {
+  addBookDialog.close();
+})
+
 // Adding example books to library and printing
 addBookToLibrary("Book 1", "Author 1", 215, true, myLibrary);
 addBookToLibrary("Book 2", "Author 2", 215, true, myLibrary);
