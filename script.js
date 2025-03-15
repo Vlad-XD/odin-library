@@ -107,7 +107,15 @@ function printLibrary(library) {
     const readButton = document.createElement("button");
     readButton.type = "button";
     readButton.textContent = book.read ? "READ" : "NOT READ";
-    readDiv.appendChild(readButton);
+    // attach "read" class if book has been read: utilized to change button display
+    if (book.read) {readButton.classList.add("read")}; 
+    // adding event listener for "read" button to toggle status of whether book has been read
+    readButton.addEventListener("click", () => {
+      readButton.classList.toggle("read");
+      book.read = book.read ? false : true;
+      readButton.textContent = book.read ? "READ" : "NOT READ";
+    })
+    readDiv.appendChild(readButton); 
     
 
     // appending individual elements to containerDiv
