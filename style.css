@@ -83,6 +83,8 @@ button#add-button:hover {
 div.body {
   display: grid;
   padding: 1rem 1rem;
+  grid-template-columns: repeat(auto-fill, 23rem); 
+  gap: 1rem;
 }
 
 div.book-container {
@@ -108,7 +110,10 @@ div.book-container > div .label {
 }
 
 div.book-container > div .content {
-  width: 15rem;
+  max-width: 15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Book container and "Add Book" Form buttons should have similar styles */
@@ -170,6 +175,13 @@ div.read-container button.read {
 /* Add space between "Add Book" form inputs */
 dialog#add-button-dialog input {
   margin-bottom: 0.25rem;
+}
+
+/* Resetting "Read" fieldset style */
+dialog#add-button-dialog fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
 }
 
 dialog#add-button-dialog input.dialog-submit-button {

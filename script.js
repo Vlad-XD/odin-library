@@ -32,8 +32,8 @@ function addBookToLibrary(title, author, pages, read, library) {
 function printLibrary(library) {
   // JS will only create elements. Styling will be done through CSS.
   for (const book of library) {
-    // obtaining body element of document
-    const documentBody = document.querySelector("body");
+    // obtaining body div element of document
+    const documentBody = document.querySelector("div.body");
 
     // containerDiv will hold all info for Book
     const containerDiv = document.createElement("div");
@@ -143,9 +143,9 @@ submitBookButton.addEventListener("click", (event) => {
   event.preventDefault();
 
   // read input values from form
-  title = document.querySelector("input#title").value;
-  author = document.querySelector("input#author").value;
-  pages = document.querySelector("input#pages").value;
+  title = document.querySelector("input#title");
+  author = document.querySelector("input#author");
+  pages = document.querySelector("input#pages");
   readChecked = document.querySelector("input[name='read']:checked");
   read = false;
   if (readChecked.value === "true"){
@@ -153,15 +153,29 @@ submitBookButton.addEventListener("click", (event) => {
   }
 
   // add book to library based on provided values
-  addBookToLibrary(title, author, pages, read, myLibrary);
+  addBookToLibrary(title.value, author.value, pages.value, read, myLibrary);
 
   printLibrary(myLibrary.slice(myLibrary.length-1)); //print only newly added (last) element.
   addBookDialog.close();
+
+  // reset dialog inputs
+  title.value= "";
+  author.value= "";
+  pages.value= "";
+  document.querySelector("input[name='read'][value='true']").checked = true;
+
 })
 
 // Close button for "Add Book" modal dialog
 addBookCloseButton = document.querySelector("button.dialog-close-button");
 addBookCloseButton.addEventListener("click", () => {
+  
+  // reset dialog inputs
+  document.querySelector("input#title").value= "";
+  document.querySelector("input#author").value= "";
+  document.querySelector("input#pages").value= "";
+  document.querySelector("input[name='read'][value='true']").checked = true;
+
   addBookDialog.close();
 })
 
