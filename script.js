@@ -38,6 +38,30 @@ function printLibrary(library) {
     // containerDiv will hold all info for Book
     const containerDiv = document.createElement("div");
     containerDiv.classList.add("book-container");
+    // container has book-ID value used to identify it when removing
+    containerDiv.setAttribute("book-id",book.id);
+
+    // header div holding the delete button
+    const headerDiv = document.createElement("div");
+    headerDiv.classList.add("book-container-header");
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.setAttribute("book-id",book.id);
+    deleteButton.textContent = "X";
+    // adding event listener for delete button
+    deleteButton.addEventListener("click", () =>{ 
+      // remove book from library array
+      deleteId = deleteButton.getAttribute("book-id");
+      for (let i=0; i < myLibrary.length; i++){
+        if(myLibrary[i].id === deleteId){
+          myLibrary.splice(i,1);
+        }
+      }
+
+      // find parent container through book ID and remove
+      document.querySelector(`div[book-id='${deleteButton.getAttribute("book-id")}']`).remove();
+    })
+    headerDiv.appendChild(deleteButton);
 
     // individual <div> elements to hold different information of the Book
     const titleDiv = document.createElement("div");
@@ -87,6 +111,7 @@ function printLibrary(library) {
     
 
     // appending individual elements to containerDiv
+    containerDiv.appendChild(headerDiv);
     containerDiv.appendChild(titleDiv);
     containerDiv.appendChild(authorDiv);
     containerDiv.appendChild(pagesDiv);
@@ -133,10 +158,10 @@ addBookCloseButton.addEventListener("click", () => {
 })
 
 // Adding example books to library and printing
-addBookToLibrary("Book 1", "Author 1", 215, true, myLibrary);
-addBookToLibrary("Book 2", "Author 2", 215, true, myLibrary);
-addBookToLibrary("Book 3", "Author 3", 215, false, myLibrary);
-addBookToLibrary("Book 4", "Author 4", 215, false, myLibrary);
+addBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 180, false, myLibrary);
+addBookToLibrary("The Catcher in the Rye", "J. D. Salinger", 277, true, myLibrary);
+addBookToLibrary("Nineteen Eighty Four", "George Orwell", 400, true, myLibrary);
+addBookToLibrary("Don Quixote", "Miguel de Cervantes", 1000, false, myLibrary);
 // for (const book of myLibrary) {
 //   console.log(`${book.title} by ${book.author}.`);
 // }
