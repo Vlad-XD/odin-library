@@ -254,17 +254,45 @@ addBookButton.addEventListener("click", () => {
   addBookDialog.showModal();
 })
 
+// get input elements from form
+const title = document.querySelector("input#title");
+const author = document.querySelector("input#author");
+const pages = document.querySelector("input#pages");
+const readChecked = document.querySelector("input[name='read']:checked");
+const submitBookForm = document.querySelector("form.add-book-form");
+const submitBookButton = document.querySelector("input.dialog-submit-button");
+
+// check for empty form inputs and customize error message
+submitBookButton.addEventListener("click", () => {
+    if (title.validity.valueMissing) {
+    title.setCustomValidity("The book's title must be filled!");
+  } else if (author.validity.valueMissing) {
+    author.setCustomValidity("The author name must be filled!");
+  } else if (pages.validity.valueMissing) {
+    pages.setCustomValidity("The number of pages must be filled!");
+  }
+})
+
+// reset custom validity messages when input changes
+title.addEventListener("input", () => {
+  title.setCustomValidity("");
+}) 
+
+author.addEventListener("input", () => {
+  author.setCustomValidity("");
+}) 
+
+pages.addEventListener("input", () => {
+  pages.setCustomValidity("");
+}) 
+
 // Implementing "Add Book" modal dialog form functionality
-submitBookButton = document.querySelector("input.dialog-submit-button");
-submitBookButton.addEventListener("click", (event) => {
+submitBookForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  // read input values from form
-  title = document.querySelector("input#title");
-  author = document.querySelector("input#author");
-  pages = document.querySelector("input#pages");
-  readChecked = document.querySelector("input[name='read']:checked");
-  read = false;
+  console.log("HI");
+  // check value of Read? radio button
+  let read = false;
   if (readChecked.value === "true"){
     read = true;
   }
@@ -279,7 +307,6 @@ submitBookButton.addEventListener("click", (event) => {
   author.value= "";
   pages.value= "";
   document.querySelector("input[name='read'][value='true']").checked = true;
-
 })
 
 // Close button for "Add Book" modal dialog
